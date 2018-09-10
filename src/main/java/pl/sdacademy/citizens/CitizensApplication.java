@@ -4,11 +4,10 @@ import pl.sdacademy.citizens.model.Person;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.*;
 
 public class CitizensApplication {
 
@@ -22,21 +21,31 @@ public class CitizensApplication {
         File personFile = new File(getClass().getClassLoader().getResource("person.csv").getFile());
         List<Person> people = personReader.readFromFile(personFile);
 
-        Map<String, Long> nameSummary = createNameSummary(people);
+        Map<String, Long> nameSummary = PeopleUtils.createNameSummary(people);
         // sample: how to print results to the console
 //        for (Map.Entry<String, Long> nameCount : nameSummary.entrySet()) {
 //            System.out.println("There are " + nameCount.getValue() + " persons with name " + nameCount.getKey());
 //        }
+//        Map<String, Long> countedByLastName = countPeopleByLastName(people);
+//        for (String lastName : countedByLastName.keySet()) {
+//            Long amountOfPeople = countedByLastName.get(lastName);
+//            System.out.println(lastName + " -> " + amountOfPeople);
+//        }
+
+//        Map<String, List<Person>> groupedByName = groupPeopleByName(people);
+//        for (String name : groupedByName.keySet()) {
+//            List<Person> listOfPersons = groupedByName.get(name);
+//            System.out.println(name + " -> " + listOfPersons);
+//        }
+
+//        System.out.println(countPeopleOver35(people));
+        System.out.println(PeopleUtils.countPeopleWithAgeBetween(35, 55, people));
+        System.out.println(PeopleUtils.countPeopleAbleToRetairement(people));
     }
 
-    private Map<String, Long> createNameSummary(List<Person> people) {
-        Map<String, Long> nameCount = new HashMap<>();
-        for (Person person : people) {
-            String name = person.getName();
-            Long peopleWithTheSameNameCount = nameCount.getOrDefault(name, 0L);
-            peopleWithTheSameNameCount++;
-            nameCount.put(name, peopleWithTheSameNameCount);
-        }
-        return nameCount;
-    }
+
+
+
+
+
 }
