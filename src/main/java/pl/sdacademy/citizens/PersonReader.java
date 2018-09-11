@@ -15,7 +15,7 @@ public class PersonReader {
         List<Person> persons = new ArrayList<>();
         long start = System.currentTimeMillis();
         for (CsvLine csvLine : csvLines) {
-            persons.add(new Person(csvLine));
+            persons.add(new Person.Builder().build(csvLine));
         }
         long stop = System.currentTimeMillis();
         System.out.println("Converted " + persons.size() + " in " + (stop - start) + " ms");
