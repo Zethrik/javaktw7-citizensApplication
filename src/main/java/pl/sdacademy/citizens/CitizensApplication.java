@@ -4,10 +4,8 @@ import pl.sdacademy.citizens.model.Person;
 
 import java.io.File;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class CitizensApplication {
 
@@ -42,10 +40,4 @@ public class CitizensApplication {
         System.out.println(PeopleUtils.countPeopleWithAgeBetween(35, 55, people));
         System.out.println(PeopleUtils.countPeopleAbleToRetairement(people));
     }
-
-
-
-
-
-
 }
