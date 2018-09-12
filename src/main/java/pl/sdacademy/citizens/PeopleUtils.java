@@ -113,4 +113,19 @@ public class PeopleUtils {
         }
         return peopleAbleToRetairement;
     }
+
+    public static boolean isNotFromTheFuture(Date birthDay) {
+        Date presentDate = Date.from(LocalDate.now()
+                .atStartOfDay()
+                .toInstant(ZoneOffset.UTC));
+        return (!birthDay.after(presentDate));
+    }
+
+    public static boolean isAdult(Date birthDay) {
+        Date validateAdultDate = Date.from(LocalDate.now()
+                .minusYears(18)
+                .atStartOfDay()
+                .toInstant(ZoneOffset.UTC));
+        return birthDay.before(validateAdultDate);
+    }
 }
