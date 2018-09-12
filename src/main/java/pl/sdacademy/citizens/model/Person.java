@@ -19,53 +19,35 @@ public class Person {
         this.birthDate = builder.birthDate;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static Builder builder(CsvLine line) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return new Builder()
+                .id(Long.parseLong(line.getElementAt(0)))
+                .name(line.getElementAt(1))
+                .lastName(line.getElementAt(2))
+                .sex(line.getElementAt(3))
+                .birthDate(dateFormat.parse(line.getElementAt(4)));
     }
 
     public Long getId() {
         return id;
     }
 
-    //
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
     public String getName() {
         return name;
     }
 
-    //
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
     public String getLastName() {
         return lastName;
     }
 
-    //
-//    public void setLastName(String lastName) {
-//        this.lastName = lastName;
-//    }
-//
     public String getSex() {
         return sex;
     }
 
-    //
-//    public void setSex(String sex) {
-//        this.sex = sex;
-//    }
-//
     public Date getBirthDate() {
         return birthDate;
     }
-//
-//    public void setBirthDate(Date birthDate) {
-//        this.birthDate = birthDate;
-////    }
 
     public static class Builder {
         private Long id;
@@ -73,6 +55,9 @@ public class Person {
         private String lastName;
         private String sex;
         private Date birthDate;
+
+        private Builder() {
+        }
 
         private Builder id(Long id) {
             this.id = id;
@@ -99,15 +84,8 @@ public class Person {
             return this;
         }
 
-        public Person build(CsvLine line) throws ParseException {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            id = Long.parseLong(line.getElementAt(0));
-            name = line.getElementAt(1);
-            lastName = line.getElementAt(2);
-            sex = line.getElementAt(3);
-            birthDate = dateFormat.parse(line.getElementAt(4));
+        public Person build() {
             return new Person(this);
-
         }
     }
 }
