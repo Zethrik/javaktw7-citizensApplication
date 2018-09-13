@@ -1,5 +1,6 @@
 package pl.sdacademy.citizens;
 
+import pl.sdacademy.citizens.model.Animal;
 import pl.sdacademy.citizens.model.Person;
 
 import java.text.ParseException;
@@ -127,5 +128,14 @@ public class PeopleUtils {
                 .atStartOfDay()
                 .toInstant(ZoneOffset.UTC));
         return birthDay.before(validateAdultDate);
+    }
+
+    public static List<Animal> haveAnimal(Long id, List<Animal> animals) {
+        List<Animal> personAnimals = new ArrayList<>();
+        for (Animal animal : animals) {
+            if (animal.getId().equals(id)) {
+                personAnimals.add(animal);
+            }
+        } return personAnimals;
     }
 }

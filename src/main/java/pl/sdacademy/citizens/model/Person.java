@@ -1,8 +1,11 @@
 package pl.sdacademy.citizens.model;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Person {
     private Long id;
@@ -10,6 +13,7 @@ public class Person {
     private String lastName;
     private String sex;
     private Date birthDate;
+    private List<Animal> ownedAnimals;
 
     private Person(Builder builder) {
         this.id = builder.id;
@@ -17,16 +21,22 @@ public class Person {
         this.lastName = builder.lastName;
         this.sex = builder.sex;
         this.birthDate = builder.birthDate;
+        this.ownedAnimals = builder.ownedAnimals;
     }
 
     public static Builder builder(CsvLine line) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        AnimalReader animalReader = new AnimalReader();
+        File animalFile = new File(Person.class.getClassLoader().getResource("animal.csv").getFile());
+        List<Animal> animals = animalReader.readFromFile(animalFile);
+
         return new Builder()
                 .id(Long.parseLong(line.getElementAt(0)))
                 .name(line.getElementAt(1))
                 .lastName(line.getElementAt(2))
                 .sex(line.getElementAt(3))
                 .birthDate(dateFormat.parse(line.getElementAt(4)));
+//                .ownedAnimals(PeopleUtils.haveAnimal(Long.parseLong(line.getElementAt(0)), animals));
     }
 
     public Long getId() {
@@ -55,6 +65,7 @@ public class Person {
         private String lastName;
         private String sex;
         private Date birthDate;
+        private List<Animal> ownedAnimals;
 
         private Builder() {
         }
@@ -84,8 +95,13 @@ public class Person {
             return this;
         }
 
+        private Builder ownedAnimals(List<Animal> ownedAnimals) {
+            this.ownedAnimals = new ArrayList<>();
+            return this;
+        }
+
         public Person build() {
-                return new Person(this);
+            return new Person(this);
         }
     }
 }
