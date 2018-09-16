@@ -49,6 +49,7 @@ public class CitizensApplication {
 //        System.out.println(countPeopleOver35(people));
 //        System.out.println(PeopleUtils.countPeopleWithAgeBetween(35, 55, people));
 //        System.out.println(PeopleUtils.countPeopleAbleToRetairement(people));
-        AnimalUtils.countAnimalsBySpecies(animals);
+//        AnimalUtils.countAnimalsBySpecies(animals);
+        System.out.println(PeopleUtils.haveMoreThenOneAnimal(people));
     }
 }

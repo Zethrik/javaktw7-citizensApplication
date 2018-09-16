@@ -132,12 +132,13 @@ public class PeopleUtils {
         return birthDay.before(validateAdultDate);
     }
 
-    public static List<Animal> haveAnimal(Long id, List<Animal> animals) {
-        List<Animal> personAnimals = new ArrayList<>();
-        for (Animal animal : animals) {
-            if (animal.getId().equals(id)) {
-                personAnimals.add(animal);
+    public static List<Person> haveMoreThenOneAnimal(List<Person> people) {
+        List<Person> result = new ArrayList<>();
+        for (Person person : people) {
+            if (person.getOwnedAnimals().size() > 1) {
+                result.add(person);
             }
-        } return personAnimals;
+        }
+        return result;
     }
 }

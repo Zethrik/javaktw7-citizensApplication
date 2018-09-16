@@ -55,6 +55,10 @@ public class Person {
         return birthDate;
     }
 
+    public List<Animal> getOwnedAnimals() {
+        return ownedAnimals;
+    }
+
     public static class Builder {
         private Long id;
         private String name;
