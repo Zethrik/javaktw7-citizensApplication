@@ -3,12 +3,12 @@ package pl.sdacademy.citizens.model;
 public class Animal {
     private Long id;
     private String name;
-    private String race;
+    private String specie;
 
     private Animal (Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
-        this.race = builder.race;
+        this.specie = builder.specie;
     }
 
     public static Builder builder(CsvLine line) {
@@ -26,14 +26,14 @@ public class Animal {
         return name;
     }
 
-    public String getRace() {
-        return race;
+    public String getSpecie() {
+        return specie;
     }
 
     public static class Builder {
         private Long id;
         private String name;
-        private String race;
+        private String specie;
 
         private Builder() {
         }
@@ -49,7 +49,7 @@ public class Animal {
         }
 
         private Builder race(String race) {
-            this.race = race;
+            this.specie = race;
             return this;
         }
 

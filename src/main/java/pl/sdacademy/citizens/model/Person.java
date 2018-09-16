@@ -5,10 +5,7 @@ import pl.sdacademy.citizens.PeopleUtils;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Person {
     private Long id;
@@ -105,11 +102,13 @@ public class Person {
         }
     }
 
-    public static void addAnimal(Map<Long, Person> people, List<Animal> animals) {
+    public static void addAnimal(List<Person> people, List<Animal> animals) {
+        Map<Long, Person> peopleMap = new HashMap<>();
+        for (Person person : people) peopleMap.put(person.getId(), person);
         for (Animal animal : animals) {
-            for (Long id : people.keySet()) {
+            for (Long id : peopleMap.keySet()) {
                 if (animal.getId().equals(id)) {
-                    people.get(id).ownedAnimals.add(animal);
+                    peopleMap.get(id).ownedAnimals.add(animal);
                 }
             }
         }

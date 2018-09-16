@@ -25,12 +25,9 @@ public class CitizensApplication {
         File personFile = new File(getClass().getClassLoader().getResource("person.csv").getFile());
         List<Person> people = personReader.readFromFile(personFile);
 
-        Map<Long, Person> peopleMap = new HashMap<>();
-        for (Person person : people) peopleMap.put(person.getId(), person);
-
         File animalFile = new File(getClass().getClassLoader().getResource("animal.csv").getFile());
         List<Animal> animals = animalReader.readFromFile(animalFile);
-        Person.addAnimal(peopleMap, animals);
+        Person.addAnimal(people, animals);
 
         Map<String, Long> nameSummary = PeopleUtils.createNameSummary(people);
         // sample: how to print results to the console
@@ -50,7 +47,8 @@ public class CitizensApplication {
 //        }
 
 //        System.out.println(countPeopleOver35(people));
-        System.out.println(PeopleUtils.countPeopleWithAgeBetween(35, 55, people));
-        System.out.println(PeopleUtils.countPeopleAbleToRetairement(people));
+//        System.out.println(PeopleUtils.countPeopleWithAgeBetween(35, 55, people));
+//        System.out.println(PeopleUtils.countPeopleAbleToRetairement(people));
+        AnimalUtils.countAnimalsBySpecies(animals);
     }
 }
