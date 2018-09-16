@@ -1,8 +1,10 @@
 package pl.sdacademy.citizens;
 
 import pl.sdacademy.citizens.model.Animal;
+import pl.sdacademy.citizens.model.AnimalReader;
 import pl.sdacademy.citizens.model.Person;
 
+import java.io.File;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;

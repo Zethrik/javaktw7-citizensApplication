@@ -1,11 +1,14 @@
 package pl.sdacademy.citizens.model;
 
+import pl.sdacademy.citizens.PeopleUtils;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Person {
     private Long id;
@@ -26,9 +29,6 @@ public class Person {
 
     public static Builder builder(CsvLine line) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        AnimalReader animalReader = new AnimalReader();
-        File animalFile = new File(Person.class.getClassLoader().getResource("animal.csv").getFile());
-        List<Animal> animals = animalReader.readFromFile(animalFile);
 
         return new Builder()
                 .id(Long.parseLong(line.getElementAt(0)))
@@ -36,7 +36,6 @@ public class Person {
                 .lastName(line.getElementAt(2))
                 .sex(line.getElementAt(3))
                 .birthDate(dateFormat.parse(line.getElementAt(4)));
-//                .ownedAnimals(PeopleUtils.haveAnimal(Long.parseLong(line.getElementAt(0)), animals));
     }
 
     public Long getId() {
@@ -68,6 +67,7 @@ public class Person {
         private List<Animal> ownedAnimals;
 
         private Builder() {
+            this.ownedAnimals = new ArrayList<>();
         }
 
         private Builder id(Long id) {
@@ -95,13 +95,23 @@ public class Person {
             return this;
         }
 
-        private Builder ownedAnimals(List<Animal> ownedAnimals) {
-            this.ownedAnimals = new ArrayList<>();
+        private Builder ownedAnimals(Animal animal) {
+            this.ownedAnimals.add(animal);
             return this;
         }
 
         public Person build() {
             return new Person(this);
+        }
+    }
+
+    public static void addAnimal(Map<Long, Person> people, List<Animal> animals) {
+        for (Animal animal : animals) {
+            for (Long id : people.keySet()) {
+                if (animal.getId().equals(id)) {
+                    people.get(id).ownedAnimals.add(animal);
+                }
+            }
         }
     }
 }
